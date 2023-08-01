@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import dbConfig from "@/configs/dbConfig";
+// import Logger from "@/utils/logger";
 import userModel from "@/models/userModel";
 const { DATABASE_URL } = dbConfig;
 
-export async function connect() {
+export async function connectDB() {
   try {
     mongoose.connect(DATABASE_URL);
     const connection = mongoose.connection;
@@ -17,7 +18,6 @@ export async function connect() {
         `MongoDB connection error.Please make sure MongoDB is running. ` + err
       );
     });
-    // process.exit();
   } catch (err) {
     throw err;
   }
@@ -30,16 +30,19 @@ export const createUser = async (payload) => {
     const user = await userModel.create(payload);
     return user;
   } catch (err) {
-    Logger.info(
-      `Failed to create user --> ${err.response?.data?.message || err.message}`
-    );
+    // Logger.info(
+    //   `Failed to create user --> ${err.response?.data?.message || err.message}`
+    // );
+    console.log("failed to create user");
     throw err;
   }
 };
 
 export const getUser = async (filter = {}, select = ``) => {
   try {
+    console.log("jd");
     const user = await userModel.findOne(filter).select(select);
+
     return user;
   } catch (err) {
     Logger.err(

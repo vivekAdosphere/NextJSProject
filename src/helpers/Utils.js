@@ -1,9 +1,10 @@
+/* eslint-disable import/no-anonymous-default-export */
 import fs from "fs";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import serverConfig from "@/configs/serverConfig";
 
-export default Utils = {
+export default {
   loadJSON: (path) =>
     JSON.parse(fs.readFileSync(new URL(path, import.meta.url))),
   hashPassword: async (password) => {
